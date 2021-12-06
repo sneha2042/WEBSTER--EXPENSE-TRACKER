@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+   <title> HOMEPAGE</title>
+{% endblock %}
+
+{% block content %}
+   <a href="{% url 'login' %}"><h1>LOGIN</h1></a>
+   <a href="{% url 'signup' %}"><h1>SIGNUP</h1></a>
+{% endblock %}
