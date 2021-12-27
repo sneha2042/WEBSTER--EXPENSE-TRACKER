@@ -12,7 +12,9 @@ class Profile(models.Model):
     user = models.ForeignKey(User , on_delete=models.CASCADE)
     income = models.FloatField()
     expenses = models.FloatField( default=0)
-    balance = models.FloatField(blank = True, null=True)
+    pos = models.FloatField(default=0)
+    neg = models.FloatField(default=0)
+    balance = models.FloatField(default=0,blank = True, null=True)
 
 
 class Expense(models.Model):

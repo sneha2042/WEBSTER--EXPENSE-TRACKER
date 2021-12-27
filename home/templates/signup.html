@@ -3,38 +3,89 @@
 {% load static %}
 
 {% block title %}
-    <!--<link rel="stylesheet" href="{% static 'login.css' %}">-->
+<meta name="viewport" content="width = device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{% static 'login1.css' %}">
     <title>EXPENSE | Signup</title>
+    
+
     <!--<link rel="icon" href="{% static 'logo.jpg' %}">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Lobster&family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+    <style>
+        .box{
+            /* background-image: url({% static 'login.jpg' %});
+            background-size: 100% 100%; */
+            background-color: #fffbf2;;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Lobster', cursive;
+            padding-top: 0%;
+            margin-top: 0%;
+            top: 8.6%;
+            margin-right: 25%;
+            width: 70%;
+        }
+      
+        .login-box{
+            color: white;
+            background-image: url({% static 'login.jpg' %});
+            background-size: 100% 100%;
+            font-family: 'Lobster', cursive;
+            width: 84%;
+            padding-top: 0%;
+            margin-top: 0rem;  
+            top: 8.66%; 
+            text-align: center;
+                     
+            
+        }
+        /* .login-box h1{
+            text-align: center;
+        } */
+        .alert{
+            position: fixed;
+            top: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Fjalla One', sans-serif;
+            background-attachment: fixed;
+            
+        }
+    </style>
 {% endblock %}    
    
 
 {% block content %}
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary" role="alert" alert-attachment="fixed">
         CHECK THE MESSAGES HERE!
        {% if messages %}
         {{messages}}
         {% endif %}
     </div>
 
-    <div class="info">
-        <h1>SIGNUP</h1>
-    </div>
+    
 
     <div class="login-box">
+        <h1>Signup</h1>
         <form method="POST" >
         {% csrf_token %}
         {{form}}
         <div align="center">
             <button  class="subbutton">Submit</button>
         </div> 
+        
         </form>
+        <img src=" url({% static 'login.jpg' %})" alt="" srcset="">
     </div>
     <div class="box">    
      <div class="info">
         <div class="textarea">
        </div>
      </div>
+     
     </div>
 {% endblock %}

@@ -1,0 +1,40 @@
+
+ 
+ body{
+        background-color: rgb(53, 46, 46);
+      }
+    
+      
+      .carousel-inner img{
+        width: 500px;
+        height: 600px;
+        opacity: 1.1;
+      }
+      .container{
+        background-color:whitesmoke;
+      }
+      .carousel-inner{
+        background-color: rgb(3, 3, 27);
+      }
+      .carousel-inner h1{
+        color:black;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .carousel-inner h3{
+        color: black;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .carousel-inner h2{
+        color: black;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .carousel-inner h4{
+        color: black;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .navbar-nav ul{
+        justify-content: center;
+      }
+      .container-fluid img{
+        width: 45px;
+      }

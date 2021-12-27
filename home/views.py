@@ -2,8 +2,9 @@ from django.shortcuts import render , redirect, HttpResponse
 from .models import *
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import authenticate,login as authLogin
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm,LoginForm
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from django.template.loader import render_to_string  
 from django.utils.encoding import force_bytes, force_text  
@@ -43,8 +44,11 @@ def signup(request):
             email=form.cleaned_data.get('email')
             username=form.cleaned_data.get('username')
             context={"messages":f"Welcome  {username} ! Sign up is successful "}
+            #Profile.objects.create(user=request.user,income = 0,expenses=0,balance=0)
+            #profile = Profile.objects.filter(user = request.user).first()
             return HttpResponse('Please confirm your email address to complete the registration')  
         else :
+            print(form.errors)
             context={"messages":f"Not Valid "}
             return render(request,'signup.html',context=context)
     else:
@@ -54,8 +58,11 @@ def signup(request):
    
 
 def home(request):
-    Profile.objects.create(user=request.user,income = 0,expenses=0,balance=0)
+    user=request.user
+    print(user)
     profile = Profile.objects.filter(user = request.user).first()
+    #Profile.objects.create(user=request.user,income = 0,expenses=0,balance=0)
+    #profile = Profile.objects.filter(user = request.user).first()
     print(Profile.objects.filter(user = request.user).first())
     #expenses = Expense.objects.filter( user = request.user)
     if request.method == 'POST':
@@ -68,15 +75,19 @@ def home(request):
         expense.save()
 
         if expense_type == 'Positive':
+            print(amount)
             profile.balance += float(amount)
+            profile.pos+=float(amount)
         else:
             profile.expenses += float(amount)
             profile.balance -= float(amount)
+            profile.neg+=float(amount)
         
         profile.save()
         return HttpResponse('done')
     else:    
-        return render(request,'home.html',{'profile': profile})
+        print(profile)
+        return render(request,'home.html',{'profile': profile,'mode':True})
     #print(profile.balance)
     
     #context = {'profile' : profile , 'expenses' : expenses}   
@@ -92,7 +103,54 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):  
         user.is_active = True  
         user.save()  
+        Profile.objects.create(user=user,income = 0,expenses=0,balance=0)
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')  
     else:  
         return HttpResponse('Activation link is invalid!')      
-     
+
+      
+def signin(request):
+        form = LoginForm(request.POST)
+        #next_ = request.POST.get('next', settings.LOGIN_REDIRECT_URL)
+        #if next_ == '':
+         #   next_ = settings.LOGIN_REDIRECT_URL
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            #remember = form.cleaned_data['remember']
+
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                profile = Profile.objects.filter(user = user).first()
+                
+                print("got")
+                #redirect("expense")
+                return render(request,'dashboard.html',{'user':user,'profile':profile,'mode':True})
+                #return render(request,'home.html',{'profile': profile,'mode':True})
+            #else:
+                #form.add_error(None, "Unable to authorize user. Try again!")
+        else:
+            return render(request, "signin.html", {'form': form}) 
+
+def category(request):
+     user=request.user
+     food=Expense.objects.filter(user=user,name="food")
+     #transactions = Expense.objects.filter(user = request.user).first()
+     profile = Profile.objects.filter(user = user).first()
+     return render(request,"category.html",{'profile':profile,'food':food})
+
+def history(request):
+     user=request.user
+     transaction=Expense.objects.filter(user=user)
+     #profile=Profile.objects.filter(user=user).first()
+     return render(request,"history.html",{'transaction':transaction})   
+
+def graph(request):
+    user=request.user
+    profile=Profile.objects.filter(user=user).first()
+
+    return render(request,"graph.html",{'itemp':profile.pos,'itemn':profile.neg})         
+
+def expenses(request):
+    return render(request,"dashboard.html")  

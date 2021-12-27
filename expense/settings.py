@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'home',
     'six',
 ]
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'expense.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +70,9 @@ TEMPLATES = [
         },
     },
 ]
+
+
+
 
 WSGI_APPLICATION = 'expense.wsgi.application'
 
@@ -132,6 +136,9 @@ LOGIN_REDIRECT_URL='/homepage/'
 LOGOUT_REDIRECT_URL="/"
 STATIC_ROOT = ' '
 STATICFILES_DIRS=( os.path.join('static'),)
+
+SITE_ID=1
+
 
 
 EMAIL_USE_TLS = True  

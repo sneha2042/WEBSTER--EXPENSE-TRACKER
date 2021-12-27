@@ -3,10 +3,41 @@
 {% load static %}
 
 {% block title %}
-    <link rel="stylesheet" href="{% static 'login1.css' %}">
-    <title>CRYPTOX | Login</title>
-    <link rel="icon" href="{% static 'logo.jpg' %}">
+<meta name="viewport" content="width = device-width, initial-scale=1.0" />
+
+    <title>EXPENSE TRACKER | Login</title>
+    <!-- <link rel="icon" href="{% static 'logo.jpg' %}"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'login1.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Lobster&family=Yanone+Kaffeesatz&display=swap" rel="stylesheet">
+    <style>
+        .box h1{
+            text-align: center;
+             padding-left: 0%;
+        }
+        .box{
+            background-image: url({% static 'login.jpg' %});
+            color: white;
+            font-family: 'Lobster', cursive;
+            text-align: center;
+            width: 70%;
+            
+
+        }
+        .login-box{
+            width: 70%;
+        }
+        .alert{
+            text-align: center;
+            font-family: 'Fjalla One', sans-serif;
+
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -17,15 +48,14 @@
         {% endif %}
     </div>
     
-    <div class="info">
-        <h1> LOGIN</h1>
-    </div>         
+             
 
-    <div class="box">
-        <div class="login-box">
+    <div class="box" id="box">
+        <h1 class = "login" >Login</h1>
+        <div class="login-box" >
             <form method="POST" >
                 {% csrf_token %}
-                {{form}}
+                {{ form }}
                 <div align="center">
                     <button  class="subbutton">Submit</button>
                 </div> 
@@ -40,4 +70,6 @@
         </div>
     </div>
 {% endblock %}
+
+
 
